@@ -1,4 +1,6 @@
 ﻿using DataLibrary;
+using DataLibrary.Domain;
+using DataLibrary.EFRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +36,8 @@ namespace WebApplicationMVC
             #endregion
 
             #region IOC
+
+            services.AddTransient<IRepository<Customer>, Repository<Customer>>();
             services.AddTransient<ICustomerService, CustomerService>();
             #endregion
             #region AutoMapper

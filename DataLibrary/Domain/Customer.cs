@@ -4,7 +4,7 @@ namespace DataLibrary.Domain
 {
     public class Customer : BaseEntity
     {
-        protected Customer()
+        public Customer()
         {
             Address = new Address(); 
         } 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplicationMVC.Models;
 using ServicesLibrary.IServices;
 using ServicesLibrary.Dto;
+using DataLibrary.Domain;
 
 namespace WebApplicationMVC.Controllers
 {
@@ -12,7 +13,7 @@ namespace WebApplicationMVC.Controllers
         public HomeController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _customerService.Add(new CustomerDto() { Username = "Jason", Password = "admin", Email = "simsq@vip.qq.com" });
+            _customerService.Add(new Customer() { Username = "Jason", Password = "admin", Email = "simsq@vip.qq.com" });
         }
         public IActionResult Index()
         {

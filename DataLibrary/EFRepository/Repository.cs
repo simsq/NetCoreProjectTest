@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DataLibrary.EFRepository
 {
@@ -10,14 +11,13 @@ namespace DataLibrary.EFRepository
     {
 
         #region Fields
-        private readonly DbContext _dbContext;
+
+        private readonly EFProjectContext _efProjectContext;
         private DbSet<T> _entities;
-        #endregion
 
-        #region Ctor
-        public Repository()
+        public Repository(EFProjectContext efProjectContext)
         {
-
+            _efProjectContext = efProjectContext;
         }
         #endregion
 
@@ -52,7 +52,7 @@ namespace DataLibrary.EFRepository
                 throw new ArgumentNullException("entity is null");
             }
             _entities.Remove(entity);
-            _dbContext.SaveChanges();
+            _efProjectContext.SaveChanges();
 
         }
 
@@ -67,7 +67,7 @@ namespace DataLibrary.EFRepository
             {
                 _entities.Remove(item);
             }
-            _dbContext.SaveChanges();
+            _efProjectContext.SaveChanges();
 
         }
 
@@ -87,13 +87,16 @@ namespace DataLibrary.EFRepository
             {
                 throw new ArgumentNullException("entity is null");
             }
-            _entities.Add(entity);
-            _dbContext.SaveChanges();
+            _efProjectContext.Add(entity);
+            _efProjectContext.SaveChanges();
+            //_entities.Add(entity);
+            //_efProjectContext.SaveChanges();
 
         }
 
         public void Insert(IEnumerable<T> enumerable)
         {
+           
             if (enumerable == null)
             {
                 throw new ArgumentNullException("entity is null");
@@ -102,7 +105,7 @@ namespace DataLibrary.EFRepository
             {
                 _entities.Add(item);
             }
-            _dbContext.SaveChanges();
+            _efProjectContext.SaveChanges();
 
         }
 
@@ -113,7 +116,7 @@ namespace DataLibrary.EFRepository
                 throw new ArgumentNullException("entity is null");
             }
             //保存
-            _dbContext.SaveChanges();
+            _efProjectContext.SaveChanges();
         }
 
         public void Update(IEnumerable<T> enumerable)
@@ -122,7 +125,7 @@ namespace DataLibrary.EFRepository
             {
                 throw new ArgumentNullException("entity is null");
             }
-            _dbContext.SaveChanges();
+            _efProjectContext.SaveChanges();
         }
 
         protected virtual DbSet<T> Entities
@@ -131,7 +134,7 @@ namespace DataLibrary.EFRepository
             {
                 if (_entities == null)
                 {
-                    _entities = _dbContext.Set<T>();
+                    _entities = _efProjectContext.Set<T>();
                 }
                 return _entities;
             }

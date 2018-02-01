@@ -5,10 +5,16 @@ namespace DataLibrary
 {
     public class EFProjectContext : DbContext
     {
+        public EFProjectContext()
+        {
+
+        }
+
         public EFProjectContext(DbContextOptions<EFProjectContext> options) : base(options)
         {
 
         }
+
 
         public DbSet<Address> Addreses { get; set; }
         public DbSet<Customer> Customers { get; set; }

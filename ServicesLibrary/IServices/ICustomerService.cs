@@ -9,7 +9,7 @@ namespace ServicesLibrary.IServices
     public interface ICustomerService
     {
 
-        void Add(CustomerDto entity);
+        void Add(Customer entity);
 
         void Delete(CustomerDto entity);
 
